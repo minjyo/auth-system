@@ -2,7 +2,7 @@
 개인 프로젝트 - 인증 시스템 개발
 <br/>
 
-공부 정리 - https://www.notion.so/cc7580dfa8834f1b8d6a82ee386c95df
+공부 정리 - https://time-mistake-8e7.notion.site/cc7580dfa8834f1b8d6a82ee386c95df
 
 <br/>
 
