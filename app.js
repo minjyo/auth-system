@@ -4,14 +4,16 @@ const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const dotenv = require("dotenv");
 const path = require("path");
-
-const { sequelize } = require("./models");
+const passport = require("passport");
 
 dotenv.config();
 const indexRouter = require("./routes");
 const userRouter = require("./routes/user");
+const { sequelize } = require("./models");
+const passportConfig = require("./passport");
 
 const app = express();
+passportConfig();
 app.set("port", process.env.PORT || 8001);
 
 sequelize
@@ -40,6 +42,8 @@ app.use(
         name: "session-cookie",
     })
 );
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use("/", indexRouter);
 app.use("/user", userRouter);
