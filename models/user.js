@@ -4,21 +4,21 @@ module.exports = class User extends Sequelize.Model {
     static init(sequelize) {
         return super.init(
             {
-                name: {
-                    type: Sequelize.STRING(20),
+                email: {
+                    type: Sequelize.STRING(),
                     allowNull: false,
                     unique: true,
                 },
-                age: {
-                    type: Sequelize.INTEGER.UNSIGNED,
+                password: {
+                    type: Sequelize.STRING(),
                     allowNull: false,
                 },
-                married: {
+                role: {
                     type: Sequelize.BOOLEAN,
                     allowNull: false,
                 },
-                comment: {
-                    type: Sequelize.TEXT,
+                intro: {
+                    type: Sequelize.STRING(),
                     allowNull: true,
                 },
                 created_at: {
@@ -39,7 +39,5 @@ module.exports = class User extends Sequelize.Model {
             }
         );
     }
-    static associate(db) {
-        db.User.hasMany(db.Comment, { foreignKey: "commenter", sourceKey: "id" });
-    }
+    static associate(db) {}
 };

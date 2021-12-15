@@ -4,8 +4,6 @@ const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const dotenv = require("dotenv");
 const path = require("path");
-const bodyParser = require("body-parser");
-const multer = require("multer");
 
 const { sequelize } = require("./models");
 
@@ -14,7 +12,7 @@ const indexRouter = require("./routes");
 const userRouter = require("./routes/user");
 
 const app = express();
-app.set("port", process.env.PORT || 3000);
+app.set("port", process.env.PORT || 8001);
 
 sequelize
     .sync({ force: false })
@@ -29,8 +27,6 @@ app.use(morgan("dev"));
 app.use("/", express.static(path.join(__dirname, "public")));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(bodyParser.raw());
-app.use(bodyParser.text());
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(
     session({
@@ -49,41 +45,16 @@ app.use("/", indexRouter);
 app.use("/user", userRouter);
 
 app.use((req, res, next) => {
-    res.status(404).send("Not Found");
+    const error = new Error(`${req.method} ${res.url} 라우터가 없습니다.`);
+    error.status = 404;
+    next(error);
 });
-
-const upload = multer({
-    storage: multer.diskStorage({
-        destination(req, file, done) {
-            done(null, "uploads/");
-        },
-        filename(req, file, done) {
-            const ext = path.extname(file.originalname);
-            done(null, path.basename(file.originalname, ext) + Date.now() + ext);
-        },
-    }),
-    limits: { fileSize: 5 * 1024 * 1024 },
-});
-
-app.use((req, res, next) => {
-    console.log("모든 요청에 다 실행됩니다.");
-    next();
-});
-
-app.get(
-    "/",
-    (req, res, next) => {
-        console.log("GET / 요청에서만 실행됩니다.");
-        next();
-    },
-    (req, res) => {
-        throw new Error("에러는 에러 처리 미들웨어로 갑니다.");
-    }
-);
 
 app.use((err, req, res, next) => {
-    console.error(err);
-    res.status(500).send(err.message);
+    res.locals.message = err.message;
+    res.locals.error = process.env.NODE_ENV !== "production" ? err : {};
+    res.status(err.status || 500);
+    res.render("error");
 });
 
 app.listen(app.get("port"), () => {
