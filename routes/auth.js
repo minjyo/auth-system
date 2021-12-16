@@ -6,12 +6,13 @@ const User = require("../models/user");
 
 const router = express.Router();
 
+// /auth/sign
 router.post("/sign", isNotLoggedIn, async (req, res, next) => {
     const { email, password } = req.body;
     try {
         const exUser = await User.findOne({ where: { email } });
         if (exUser) {
-            return res.redirect("/join?error=exist");
+            return res.redirect("/sign?error=exist");
         }
         const hash = await bcrypt.hash(password, 12);
         await User.create({
@@ -25,6 +26,7 @@ router.post("/sign", isNotLoggedIn, async (req, res, next) => {
     }
 });
 
+// /auth/login
 router.post("/login", isNotLoggedIn, (req, res, next) => {
     passport.authenticate("local", (authError, user, info) => {
         if (authError) {

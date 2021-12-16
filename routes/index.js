@@ -1,12 +1,12 @@
 const express = require("express");
-const {isLoggedIn, isNotLoggedIn } = require('./middlewares');
+const { isLoggedIn, isNotLoggedIn } = require("./middlewares");
 
 const router = express.Router();
 
 router.use((req, res, next) => {
     res.locals.user = req.user;
     next();
-})
+});
 
 router.get("/", isLoggedIn, (req, res) => {
     res.send("메인 페이지");

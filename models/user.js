@@ -5,21 +5,27 @@ module.exports = class User extends Sequelize.Model {
         return super.init(
             {
                 email: {
-                    type: Sequelize.STRING(),
+                    type: Sequelize.STRING(20),
                     allowNull: false,
                     unique: true,
                 },
                 password: {
-                    type: Sequelize.STRING(),
+                    type: Sequelize.STRING(20),
                     allowNull: false,
                 },
                 role: {
                     type: Sequelize.BOOLEAN,
                     allowNull: false,
+                    defaultValue: 0,
                 },
                 intro: {
-                    type: Sequelize.STRING(),
+                    type: Sequelize.STRING(50),
                     allowNull: true,
+                },
+                state: {
+                    type: Sequelize.BOOLEAN,
+                    allowNull: false,
+                    defaultValue: 0,
                 },
                 created_at: {
                     type: Sequelize.DATE,
