@@ -10,3 +10,10 @@
 1. Node와 Express 설치 및 실행
 2. Express에서 자주 쓰이는 미들웨어 살펴보기 
 3. Router 객체로 라우팅 분리하기
+
+### 1일차 (12.15 ) 
+1. MySQL 데이터베이스 & 테이블
+2. MySQL CRUD
+3. 시퀄라이즈
+4. Passport로 로그인 구현
+
