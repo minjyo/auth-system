@@ -2,11 +2,13 @@ const express = require("express");
 const jwt = require("jsonwebtoken");
 
 const { verifyToken } = require("./middlewares");
-const { User } = require("../models/user");
+const User = require("../models/user");
 
 const router = express.Router();
 
+// /v1/token
 router.post("/token", async (req, res) => {
+    // 여기 clientSecret 이던데... 이렇게 해도 되나?????????
     const { userInfo } = req.body;
     try {
         const user = await User.findOne({
@@ -44,6 +46,7 @@ router.post("/token", async (req, res) => {
     }
 });
 
+// /v1/test
 router.get("/test", verifyToken, (req, res) => {
     res.json(req.decoded);
 });
