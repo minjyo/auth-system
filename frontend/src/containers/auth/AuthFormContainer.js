@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import AuthForm from "../../components/auth/AuthForm";
-import palette from "../../lib/styles/palette";
 import AuthButtons from "../../components/auth/AuthButtons";
 import { login, sign } from "../../lib/api/auth";
+import { useNavigate } from "react-router-dom";
 
 const AuthFormContainer = () => {
     const [email, setEmail] = useState("");
@@ -16,10 +16,20 @@ const AuthFormContainer = () => {
         }
     };
 
+    const navigate = useNavigate();
+
     return (
         <>
             <AuthForm email={email} password={password} onChange={onChange}></AuthForm>
-            <AuthButtons onLogin={login} onSign={sign} email={email} password={password}></AuthButtons>
+            <AuthButtons
+                onLogin={() => {
+                    login();
+                    navigate("/");
+                }}
+                onSign={sign}
+                email={email}
+                password={password}
+            ></AuthButtons>
         </>
     );
 };

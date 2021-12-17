@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import AuthFormContainer from "../containers/auth/AuthFormContainer";
 import palette from "../lib/styles/palette";
 import styled from "styled-components";
@@ -23,12 +23,6 @@ const AuthWrapper = styled.div`
 `;
 
 const AuthPage = ({ history }) => {
-    useEffect(() => {
-        if (localStorage.getItem("accessToken")) {
-            history.push("/");
-        }
-    });
-
     return (
         <PageWrapper>
             <AuthWrapper>
