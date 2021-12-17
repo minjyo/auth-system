@@ -7,15 +7,14 @@ const path = require("path");
 const passport = require("passport");
 
 dotenv.config();
-const v1 = require("./routes/v1");
-const indexRouter = require("./routes");
+
 const authRouter = require("./routes/auth");
 const userRouter = require("./routes/user");
 const { sequelize } = require("./models");
 const passportConfig = require("./passport");
 
 const app = express();
-passportConfig();
+
 app.set("port", process.env.PORT || 8001);
 
 sequelize
@@ -45,10 +44,8 @@ app.use(
     })
 );
 app.use(passport.initialize());
-app.use(passport.session());
+passportConfig();
 
-app.use("/v1", v1);
-app.use("/", indexRouter);
 app.use("/auth", authRouter);
 app.use("/user", userRouter);
 
