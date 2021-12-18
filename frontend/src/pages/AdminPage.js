@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import UserListContainer from "../containers/admin/UserListContainer";
+import Button from "../components/common/Button";
 
 const AdminPage = () => {
     const navigate = useNavigate();
@@ -11,7 +12,17 @@ const AdminPage = () => {
         }
     });
 
-    return <UserListContainer />;
+    const logout = () => {
+        localStorage.removeItem("accessToken");
+        navigate("/auth");
+    };
+
+    return (
+        <div>
+            <UserListContainer />
+            <Button onClick={logout} text={"로그아웃"}></Button>
+        </div>
+    );
 };
 
 export default AdminPage;

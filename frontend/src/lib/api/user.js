@@ -8,7 +8,7 @@ export const getInfo = async () => {
     });
 
     if (res.data.message === "Get User Info OK") {
-        return res.data.result.role;
+        return res.data.result;
     }
     return false;
 };
@@ -16,7 +16,7 @@ export const getInfo = async () => {
 export const postIntro = async (intro) => {
     const res = await client.get(
         `/user/intro`,
-        { intro },
+        { intro: intro },
         {
             headers: {
                 Authorization: `${localStorage.getItem("accessToken")}`,
