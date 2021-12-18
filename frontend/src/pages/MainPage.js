@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../components/common/Button";
 import styled from "styled-components";
+import { getInfo } from "../lib/api/user";
 
 const Wrapper = styled.div`
     display: flex;
@@ -23,6 +24,14 @@ const MainPage = () => {
         if (!localStorage.getItem("accessToken")) {
             navigate("/auth");
         }
+    });
+
+    useEffect(() => {
+        const res = getInfo().then((admin) => {
+            if (admin) {
+                navigate("/admin");
+            }
+        });
     });
 
     const logout = () => {

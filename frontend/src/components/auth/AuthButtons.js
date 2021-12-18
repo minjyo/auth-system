@@ -27,12 +27,10 @@ const Button = styled.button`
 
 const AuthButtons = ({ onLogin, onSign, email, password }) => {
     return (
-        <>
-            <AuthButtonsBlock>
-                <Button onClick={() => onLogin({ email, password })}>로그인</Button>
-                <Button onClick={() => onSign({ email, password })}>회원가입</Button>
-            </AuthButtonsBlock>
-        </>
+        <AuthButtonsBlock>
+            <Button onClick={() => onLogin({ email, password })}>로그인</Button>
+            <Button onClick={() => onSign({ email, password })}>회원가입</Button>
+        </AuthButtonsBlock>
     );
 };
 

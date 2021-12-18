@@ -4,7 +4,7 @@ import AuthButtons from "../../components/auth/AuthButtons";
 import { login, sign } from "../../lib/api/auth";
 import { useNavigate } from "react-router-dom";
 
-const AuthFormContainer = () => {
+const UserListContainer = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -34,4 +34,4 @@ const AuthFormContainer = () => {
     );
 };
 
-export default AuthFormContainer;
+export default UserListContainer;
