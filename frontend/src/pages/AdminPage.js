@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import UserListContainer from "../containers/admin/UserListContainer";
 
 const AdminPage = () => {
     const navigate = useNavigate();
@@ -10,7 +11,7 @@ const AdminPage = () => {
         }
     });
 
-    return <div>AdminPage</div>;
+    return <UserListContainer />;
 };
 
 export default AdminPage;

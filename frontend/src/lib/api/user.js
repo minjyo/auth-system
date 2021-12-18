@@ -13,10 +13,15 @@ export const getInfo = async () => {
     return false;
 };
 
-export const login = async ({ email, password }) => {
-    const res = await client.post(`/auth/login`, { email: email, password: password });
-    if (res.data.message === "Login OK") {
-        localStorage.setItem("accessToken", res.data.result);
+export const getUsers = async () => {
+    const res = await client.get(`/user/users`, {
+        headers: {
+            Authorization: `${localStorage.getItem("accessToken")}`,
+        },
+    });
+
+    if (res.data.message === "Get Users OK") {
+        return res.data.result;
     }
-    return;
+    return false;
 };

@@ -1,35 +1,19 @@
-import React, { useState } from "react";
-import AuthForm from "../../components/auth/AuthForm";
-import AuthButtons from "../../components/auth/AuthButtons";
-import { login, sign } from "../../lib/api/auth";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import UserList from "../../components/admin/UserList";
+import { getUsers } from "../../lib/api/user";
 
 const UserListContainer = () => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [users, setUsers] = useState();
 
-    const onChange = (field) => {
-        if (field.key === "email") {
-            setEmail(field.value);
-        } else {
-            setPassword(field.value);
-        }
-    };
-
-    const navigate = useNavigate();
+    useEffect(() => {
+        getUsers().then((res) => {
+            setUsers(res);
+        });
+    }, []);
 
     return (
         <>
-            <AuthForm email={email} password={password} onChange={onChange}></AuthForm>
-            <AuthButtons
-                onLogin={() => {
-                    login({ email, password });
-                    navigate("/");
-                }}
-                onSign={sign}
-                email={email}
-                password={password}
-            ></AuthButtons>
+            <UserList users={users}></UserList>
         </>
     );
 };
