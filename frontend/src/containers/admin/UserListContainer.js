@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import UserList from "../../components/admin/UserList";
-import { getUsers } from "../../lib/api/user";
+import { getUsers, deleteUser, setAdmin } from "../../lib/api/admin";
 
 const UserListContainer = () => {
     const [users, setUsers] = useState();
@@ -13,7 +13,7 @@ const UserListContainer = () => {
 
     return (
         <>
-            <UserList users={users}></UserList>
+            <UserList onDelete={deleteUser} onAdmin={setAdmin} users={users}></UserList>
         </>
     );
 };

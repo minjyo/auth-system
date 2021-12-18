@@ -51,8 +51,8 @@ const UserList = ({ users, onDelete, onAdmin }) => {
                             <UserInfo>{user.role ? "관리자" : "일반 사용자"} </UserInfo>
                             <UserInfo>{user.intro}</UserInfo>
                         </UserInfoBox>
-                        <UserActionButton onClick={onDelete} text={"삭제"}></UserActionButton>
-                        <UserActionButton onClick={onAdmin} text={"관리자 권한"}></UserActionButton>
+                        <UserActionButton onClick={() => onDelete(user.email)} text={"삭제"}></UserActionButton>
+                        <UserActionButton onClick={() => onAdmin(user.email)} text={"관리자 권한"}></UserActionButton>
                     </UserBox>
                 ))}
         </UserListBlock>

@@ -13,15 +13,15 @@ export const getInfo = async () => {
     return false;
 };
 
-export const getUsers = async () => {
-    const res = await client.get(`/user/users`, {
-        headers: {
-            Authorization: `${localStorage.getItem("accessToken")}`,
-        },
-    });
-
-    if (res.data.message === "Get Users OK") {
-        return res.data.result;
-    }
+export const postIntro = async (intro) => {
+    const res = await client.get(
+        `/user/intro`,
+        { intro },
+        {
+            headers: {
+                Authorization: `${localStorage.getItem("accessToken")}`,
+            },
+        }
+    );
     return false;
 };

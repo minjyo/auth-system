@@ -19,7 +19,7 @@ router.post("/sign", async (req, res, next) => {
             email,
             password: hash,
         });
-        return res.redirect("/");
+        return res.json({ message: "Sign OK" });
     } catch (error) {
         console.error(error);
         return next(error);
@@ -40,22 +40,16 @@ router.post("/login", async (req, res, next) => {
                     return;
                 }
                 const token = jwt.sign({ id: user.id, email: user.email, role: user.role, intro: user.intro }, process.env.JWT_SECRET, {
-                    expiresIn: "3m",
+                    expiresIn: "30m",
                 });
+                console.log("token", token);
                 res.status(200).json({ message: "Login OK", result: token });
             });
         })(req, res);
     } catch (error) {
-        xs;
         console.error(error);
         next(error);
     }
-});
-
-router.get("/logout", (req, res) => {
-    req.logout();
-    req.session.destroy();
-    res.redirect("/");
 });
 
 module.exports = router;

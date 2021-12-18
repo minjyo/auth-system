@@ -21,7 +21,6 @@ const passportVerify = async (email, password, done) => {
             done(null, exUser);
             return;
         }
-
         done(null, false, { message: "Not correct password" });
     } catch (error) {
         console.error(error);
