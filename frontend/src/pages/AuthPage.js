@@ -22,7 +22,7 @@ const AuthWrapper = styled.div`
     width: 40%;
 `;
 
-const AuthPage = ({ history }) => {
+const AuthPage = () => {
     return (
         <PageWrapper>
             <AuthWrapper>

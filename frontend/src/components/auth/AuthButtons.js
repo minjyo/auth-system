@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import styled, { css } from "styled-components";
+import React from "react";
+import styled from "styled-components";
 import palette from "../../lib/styles/palette";
 
 const AuthButtonsBlock = styled.div`
