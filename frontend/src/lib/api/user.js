@@ -25,3 +25,13 @@ export const postIntro = async (intro) => {
     );
     return false;
 };
+
+export const isAdmin = async () => {
+    const res = await client.get(`/user/admin`, {
+        headers: {
+            Authorization: `${localStorage.getItem("accessToken")}`,
+        },
+    });
+
+    return res.data.result;
+};

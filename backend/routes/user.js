@@ -42,4 +42,22 @@ router.post("/intro", passport.authenticate("jwt", { session: false }), async (r
     }
 });
 
+// /user/admin
+router.get("/admin", passport.authenticate("jwt", { session: false }), async (req, res, next) => {
+    try {
+        const decoded = jwt.decode(req.headers.authorization, process.env.JWT_SECRET);
+
+        const exUser = await User.findOne({
+            where: {
+                id: decoded.id,
+            },
+        });
+
+        res.json({ message: "IsAdmin OK", result: exUser.role === 1 });
+    } catch (error) {
+        console.error(error);
+        next(error);
+    }
+});
+
 module.exports = router;

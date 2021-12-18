@@ -35,7 +35,6 @@ const MainPage = () => {
 
     useEffect(() => {
         const res = getInfo().then((info) => {
-            console.log(info);
             setIntro(info.intro);
 
             if (info.role === 1) {

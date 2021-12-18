@@ -10,15 +10,20 @@ const router = express.Router();
 router.get("/users", passport.authenticate("jwt", { session: false }), async (req, res, next) => {
     try {
         const decoded = jwt.decode(req.headers.authorization, process.env.JWT_SECRET);
-        const users = await User.findAll({
-            where: {
-                id: {
-                    [Op.ne]: decoded.id,
+
+        if (decoded.role) {
+            const users = await User.findAll({
+                where: {
+                    id: {
+                        [Op.ne]: decoded.id,
+                    },
+                    state: 0,
                 },
-                state: 0,
-            },
-        });
-        res.status(200).json({ message: "Get Users OK", result: users });
+            });
+            res.status(200).json({ message: "Get Users OK", result: users });
+        } else {
+            res.status(403).json({ message: "Not Admin" });
+        }
     } catch (error) {
         console.error(error);
         next(error);
@@ -28,17 +33,21 @@ router.get("/users", passport.authenticate("jwt", { session: false }), async (re
 // /admin/user
 router.post("/user", passport.authenticate("jwt", { session: false }), async (req, res, next) => {
     try {
-        console.log(req.body);
         const decoded = jwt.decode(req.headers.authorization, process.env.JWT_SECRET);
-        const users = await User.update(
-            { state: 1 },
-            {
-                where: {
-                    email: req.body.email,
-                },
-            }
-        );
-        res.status(200).json({ message: "Delete User OK", result: users });
+
+        if (decoded.role) {
+            const users = await User.update(
+                { state: 1 },
+                {
+                    where: {
+                        email: req.body.email,
+                    },
+                }
+            );
+            res.status(200).json({ message: "Delete User OK", result: users });
+        } else {
+            res.status(403).json({ message: "Not Admin" });
+        }
     } catch (error) {
         console.error(error);
         next(error);
@@ -49,16 +58,20 @@ router.post("/user", passport.authenticate("jwt", { session: false }), async (re
 router.post("/setAdmin", passport.authenticate("jwt", { session: false }), async (req, res, next) => {
     try {
         const decoded = jwt.decode(req.headers.authorization, process.env.JWT_SECRET);
-        console.log(req.body);
-        const users = await User.update(
-            { role: 1 },
-            {
-                where: {
-                    email: req.body.email,
-                },
-            }
-        );
-        res.status(200).json({ message: "Set Admin OK", result: users });
+
+        if (decoded.role) {
+            const users = await User.update(
+                { role: 1 },
+                {
+                    where: {
+                        email: req.body.email,
+                    },
+                }
+            );
+            res.status(200).json({ message: "Set Admin OK", result: users });
+        } else {
+            res.status(403).json({ message: "Not Admin" });
+        }
     } catch (error) {
         console.error(error);
         next(error);
