@@ -24,3 +24,17 @@
 2. JWT 토큰 발급 및 검사
 3. DB 구조 수정
 4. Postman으로 Passport & JWT API 테스트
+
+
+### 4일차 (12.17) 
+1. 회원가입 API 개발
+2. Passport-local로 로그인 API 개발
+3. Passport-jwt로 JWT 인증 구현 후, 로그인 이후의 API에서 JWT 방식 인증 사용 
+4. 유저 자기소개 등록 API 개발
+5. 프론트엔드 인증 페이지 개발
+6. 프론트엔드 인증 기능(sign, login) 개발
+
+<br/>
+<br/>
+
+## 아키텍처
