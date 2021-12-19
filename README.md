@@ -44,3 +44,5 @@
 <br/>
 
 ## 아키텍처
+
+<img width="658" alt="architecture" src="https://user-images.githubusercontent.com/24283401/146665917-a98e9f77-afe7-4a37-94c6-3337ac08a7f6.png">
