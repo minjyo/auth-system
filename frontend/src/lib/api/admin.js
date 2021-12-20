@@ -23,8 +23,10 @@ export const deleteUser = async (email) => {
             },
         }
     );
-
-    return false;
+    if (res.data.message === "Delete User OK") {
+        alert("사용자가 삭제되었습니다.");
+    }
+    return;
 };
 
 export const setAdmin = async (email) => {
@@ -37,6 +39,8 @@ export const setAdmin = async (email) => {
             },
         }
     );
-
-    return false;
+    if (res.data.message === "Set Admin OK") {
+        alert("사용자가 관리자로 임명되었습니다.");
+    }
+    return;
 };

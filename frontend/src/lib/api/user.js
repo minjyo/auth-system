@@ -10,7 +10,7 @@ export const getInfo = async () => {
     if (res.data.message === "Get User Info OK") {
         return res.data.result;
     }
-    return false;
+    return;
 };
 
 export const postIntro = async (intro) => {
@@ -23,7 +23,11 @@ export const postIntro = async (intro) => {
             },
         }
     );
-    return false;
+    if (res.data.message === "Post Intro OK") {
+        alert("자기소개가 등록되었습니다.");
+    }
+
+    return;
 };
 
 export const isAdmin = async () => {

@@ -22,8 +22,8 @@ const AuthFormContainer = () => {
         <>
             <AuthForm email={email} password={password} onChange={onChange}></AuthForm>
             <AuthButtons
-                onLogin={() => {
-                    login({ email, password });
+                onLogin={async () => {
+                    await login({ email, password });
                     navigate("/");
                 }}
                 onSign={sign}

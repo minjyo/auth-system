@@ -42,7 +42,7 @@ const MainPage = () => {
     });
 
     useEffect(() => {
-        const res = getInfo().then((info) => {
+        getInfo().then((info) => {
             setIntro(info.intro);
             if (info.role === true) {
                 navigate("/admin");
