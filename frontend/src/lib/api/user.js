@@ -14,7 +14,7 @@ export const getInfo = async () => {
 };
 
 export const postIntro = async (intro) => {
-    const res = await client.get(
+    const res = await client.post(
         `/user/intro`,
         { intro: intro },
         {

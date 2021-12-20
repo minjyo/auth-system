@@ -15,6 +15,7 @@ const AdminPage = () => {
 
     useEffect(() => {
         isAdmin().then((res) => {
+            console.log(res);
             if (!res) {
                 navigate("/");
             }

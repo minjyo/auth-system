@@ -23,7 +23,7 @@ router.get("/info", passport.authenticate("jwt", { session: false }), async (req
 router.post("/intro", passport.authenticate("jwt", { session: false }), async (req, res, next) => {
     try {
         const decoded = jwt.decode(req.headers.authorization, process.env.JWT_SECRET);
-
+        console.log(req.body);
         await User.update(
             {
                 intro: req.body.intro,
@@ -52,8 +52,7 @@ router.get("/admin", passport.authenticate("jwt", { session: false }), async (re
                 id: decoded.id,
             },
         });
-
-        res.json({ message: "IsAdmin OK", result: exUser.role === 1 });
+        res.json({ message: "IsAdmin OK", result: exUser.role === true });
     } catch (error) {
         console.error(error);
         next(error);
