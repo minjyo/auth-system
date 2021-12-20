@@ -55,6 +55,19 @@ https://time-mistake-8e7.notion.site/cc7580dfa8834f1b8d6a82ee386c95df
 <br/>
 <br/>
 
+## 🛠 요구사항
+1. 회원가입 - POST /auth/sign
+2. 로그인 - POST /auth/login
+3. 사용자 정보 가져오기 - GET /user/info
+4. 사용자 자기소개 등록하기 - POST /user/intro
+5. 관리자 확인 - GET /user/admin
+6. 모든 사용자 정보 가져오기 - GET /admin/users
+7. 사용자 삭제 - POST /admin/user
+8. 관리자 권한 주기 - POST /admin/setAdmin
+
+<br/>
+<br/>
+
 ## 🛠 아키텍처
 <img width="658" alt="architecture" src="https://user-images.githubusercontent.com/24283401/146665917-a98e9f77-afe7-4a37-94c6-3337ac08a7f6.png">
 
