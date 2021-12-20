@@ -48,7 +48,7 @@ const MainPage = () => {
                 navigate("/admin");
             }
         });
-    }, []);
+    }, [navigate]);
 
     const logout = () => {
         localStorage.removeItem("accessToken");

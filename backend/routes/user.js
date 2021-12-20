@@ -23,7 +23,6 @@ router.get("/info", passport.authenticate("jwt", { session: false }), async (req
 router.post("/intro", passport.authenticate("jwt", { session: false }), async (req, res, next) => {
     try {
         const decoded = jwt.decode(req.headers.authorization, process.env.JWT_SECRET);
-        console.log(req.body);
         await User.update(
             {
                 intro: req.body.intro,

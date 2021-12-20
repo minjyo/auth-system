@@ -18,7 +18,7 @@ export const postIntro = async (intro) => {
         `/user/intro`,
         { intro: intro },
         {
-            headers: {
+            headedrs: {
                 Authorization: `${localStorage.getItem("accessToken")}`,
             },
         }
