@@ -16,6 +16,12 @@ https://time-mistake-8e7.notion.site/cc7580dfa8834f1b8d6a82ee386c95df
 <br/>
 <br/>
 
+## 빌드 및 실행
+```shell
+  npm run build # 빌드
+  ~저장위치/auth-system-macos(버전) ; exit; # 실행 (또는 파일 더블 클릭)
+```
+
 ## 진행 과정
 
 ### 👩🏻‍💻 1일차 (12.14)
