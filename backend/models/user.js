@@ -4,6 +4,11 @@ module.exports = class User extends Sequelize.Model {
     static init(sequelize) {
         return super.init(
             {
+                idx: {
+                    type: Sequelize.INTEGER,
+                    primaryKey: true,
+                    autoIncrement: true,
+                },
                 email: {
                     type: Sequelize.STRING(20),
                     allowNull: false,
@@ -13,19 +18,30 @@ module.exports = class User extends Sequelize.Model {
                     type: Sequelize.STRING(60),
                     allowNull: false,
                 },
+                username: {
+                    type: Sequelize.STRING(20),
+                    allowNull: false,
+                },
+                nickname: {
+                    type: Sequelize.STRING(20),
+                    allowNull: false,
+                    unique: true,
+                },
                 role: {
-                    type: Sequelize.BOOLEAN,
+                    type: Sequelize.TINYINT,
                     allowNull: false,
-                    defaultValue: 0,
                 },
-                intro: {
-                    type: Sequelize.STRING(50),
-                    allowNull: true,
+                money: {
+                    type: Sequelize.DOUBLE,
                 },
-                state: {
-                    type: Sequelize.BOOLEAN,
-                    allowNull: false,
-                    defaultValue: 0,
+                profile: {
+                    type: Sequelize.JSON,
+                },
+                language: {
+                    type: Sequelize.STRING(20),
+                },
+                country: {
+                    type: Sequelize.STRING(20),
                 },
                 created_at: {
                     type: Sequelize.DATE,
@@ -38,7 +54,7 @@ module.exports = class User extends Sequelize.Model {
                 timestamps: false,
                 underscored: false,
                 modelName: "User",
-                tableName: "users",
+                tableName: "user",
                 paranoid: false,
                 charset: "utf8",
                 collate: "utf8_general_ci",

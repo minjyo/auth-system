@@ -2,19 +2,25 @@ const express = require("express");
 const cookieParser = require("cookie-parser");
 const dotenv = require("dotenv");
 const path = require("path");
-const passport = require("passport");
+const redis = require("redis");
 
 dotenv.config();
 
 const authRouter = require("./routes/auth");
-const userRouter = require("./routes/user");
-const adminRouter = require("./routes/admin");
 const { sequelize } = require("./models");
-const passportConfig = require("./passport");
+
+const redisClient = redis.createClient();
+redisClient.on("error", function (err) {
+    console.log("Error " + err);
+});
+redisClient.on("connect", function () {
+    console.log("Connected to redis instance");
+});
+redisClient.connect();
 
 const app = express();
 
-app.set("port", process.env.PORT || 8001);
+app.set("port", process.env.PORT || 8200);
 
 sequelize
     .sync({ force: false })
@@ -25,15 +31,16 @@ sequelize
         console.error(err);
     });
 
-app.use("/", express.static(path.join(__dirname, "public")));
-app.use(express.json());
+app.use((req, res, next) => {
+    req.redisClient = redisClient;
+    next();
+});
+
 app.use(cookieParser(process.env.COOKIE_SECRET));
-app.use(passport.initialize());
-passportConfig();
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 app.use("/auth", authRouter);
-app.use("/user", userRouter);
-app.use("/admin", adminRouter);
 
 app.use((req, res, next) => {
     const error = new Error(`${req.method} ${res.url} 라우터가 없습니다.`);
