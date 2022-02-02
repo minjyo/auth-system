@@ -1,5 +1,5 @@
 const express = require("express");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const User = require("../models/user");
 const jwt = require("jsonwebtoken");
 const Sequelize = require("sequelize");
@@ -18,9 +18,27 @@ router.post("/email", async (req, res, next) => {
 
         if (exUser) {
             // 이미 존재하는 이메일인 경우
-            return failureRes(res, 10100, "Existed User", "이미 존재하는 이메일입니다.");
+            return failureRes(res, 10100, "Existed Email", "이미 존재하는 이메일입니다.");
         }
         return successRes(res, 10000, "Email OK", {});
+    } catch (error) {
+        console.error(error);
+        return next(error);
+    }
+});
+
+// /auth/nickname 닉네임 중복 확인
+router.post("/nickname", async (req, res, next) => {
+    const { nickname } = req.body;
+
+    try {
+        const exUser = await User.findOne({ where: { nickname: nickname } });
+
+        if (exUser) {
+            // 이미 존재하는 이메일인 경우
+            return failureRes(res, 10101, "Existed Nickname", "이미 존재하는 닉네임입니다.");
+        }
+        return successRes(res, 10000, "Nickname OK", {});
     } catch (error) {
         console.error(error);
         return next(error);
@@ -61,14 +79,14 @@ router.post("/signin", async (req, res, next) => {
 
         if (!exUser) {
             // 이메일이 존재하지 않는 경우
-            return failureRes(res, 10101, "Not Existed User", "유저가 존재하지 않습니다.");
+            return failureRes(res, 10102, "Not Existed User", "유저가 존재하지 않습니다.");
         }
 
         const compareResult = await bcrypt.compare(password, exUser.password);
 
         if (!compareResult) {
             // 비밀번호가 일치하지 않는 경우
-            return failureRes(res, 10102, "Password Error", "비밀번호가 일치하지 않습니다.");
+            return failureRes(res, 10103, "Password Error", "비밀번호가 일치하지 않습니다.");
         }
 
         // 현재 시간으로 accessed_at 수정, ip 추가
@@ -118,12 +136,12 @@ router.post("/token", async (req, res, next) => {
 
         if (result === null) {
             // redis에 refreshToken이 없는 경우
-            return failureRes(res, 10103, "RefreshToken Error", "refreshToken이 유효하지 않습니다. 다시 로그인해주세요.");
+            return failureRes(res, 10104, "RefreshToken Error", "refreshToken이 유효하지 않습니다. 다시 로그인해주세요.");
         }
 
         if (result !== accessToken) {
             // redis에 저장된 accessToken과 일치하지 않는 경우
-            return failureRes(res, 10104, "AccessToken Error", "잘못된 accessToken 입니다.");
+            return failureRes(res, 10105, "AccessToken Error", "잘못된 accessToken 입니다.");
         }
 
         const decoded = jwt.decode(accessToken, `${process.env.JWT_SECRET}`);
@@ -168,7 +186,7 @@ router.post("/password", async (req, res, next) => {
 
         if (!compareResult) {
             // 비밀번호가 일치하지 않는 경우
-            return failureRes(res, 10102, "Password Error", "비밀번호가 일치하지 않습니다.");
+            return failureRes(res, 10106, "Password Error", "비밀번호가 일치하지 않습니다.");
         }
 
         const hash = await bcrypt.hash(newPassword, 12);
