@@ -186,7 +186,7 @@ router.post("/password", async (req, res, next) => {
 
         if (!compareResult) {
             // 비밀번호가 일치하지 않는 경우
-            return failureRes(res, 10106, "Password Error", "비밀번호가 일치하지 않습니다.");
+            return failureRes(res, 10103, "Password Error", "비밀번호가 일치하지 않습니다.");
         }
 
         const hash = await bcrypt.hash(newPassword, 12);
