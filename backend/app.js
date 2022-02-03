@@ -3,17 +3,18 @@ const cookieParser = require("cookie-parser");
 const dotenv = require("dotenv");
 const path = require("path");
 const redis = require("redis");
+const cors = require("cors");
 
 dotenv.config();
 
 const authRouter = require("./routes/auth");
 const { sequelize } = require("./models");
 
-const redisClient = redis.createClient();
+const redisClient = redis.createClient({ host: "http://54.180.117.120", port: 6379 });
 redisClient.on("error", function (err) {
     console.log("Error " + err);
 });
-redisClient.on("connect", function () {                                                                                                                                                                                                                                                                           
+redisClient.on("connect", function () {
     console.log("Connected to redis instance");
 });
 redisClient.connect();
@@ -36,6 +37,7 @@ app.use((req, res, next) => {
     next();
 });
 
+app.use(cors());
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
