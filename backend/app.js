@@ -10,7 +10,7 @@ dotenv.config();
 const authRouter = require("./routes/auth");
 const { sequelize } = require("./models");
 
-const redisClient = redis.createClient({ host: "http://54.180.117.120", port: 6379 });
+const redisClient = redis.createClient({ url: "redis://ec2-54-180-117-120.ap-northeast-2.compute.amazonaws.com:6379" });
 redisClient.on("error", function (err) {
     console.log("Error " + err);
 });
@@ -21,7 +21,7 @@ redisClient.connect();
 
 const app = express();
 
-app.set("port", process.env.PORT || 8200);
+app.set("port", process.env.PORT || 8101);
 
 sequelize
     .sync({ force: false })
