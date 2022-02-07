@@ -6,11 +6,11 @@ const successRes = (res, code, message, data) => {
     });
 };
 
-const failureRes = (res, code, message, description) => {
+const failureRes = (res, code, message, data) => {
     res.status(200).json({
         code: code,
         message: message,
-        description: description,
+        data: data,
     });
 };
 
