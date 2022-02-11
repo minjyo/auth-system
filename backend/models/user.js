@@ -36,6 +36,10 @@ module.exports = class User extends Sequelize.Model {
                 },
                 profile: {
                     type: Sequelize.JSON,
+                    defaultValue: {
+                        image: "",
+                        description: "",
+                    },
                 },
                 language: {
                     type: Sequelize.STRING(20),
